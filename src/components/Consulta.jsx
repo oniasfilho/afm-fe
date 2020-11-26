@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
 
 
 function Consulta() {
@@ -7,11 +6,22 @@ function Consulta() {
     buscaPessoas();
   }, [])
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    {
+      "id": "",
+      "cpf": "",
+      "nome": "",
+      "email": "",
+      "dataDeCriacao": null,
+      "ultimaAtualizacao": null,
+      "status": null,
+      "dispositivos": []
+    }
+  ]);
 
   const buscaPessoas = async () =>{
     const dados = await fetch(
-      'https://devmentor.live/api/examples/contacts?api_key=b7c58b'
+      '/api/usuarios'
     );
 
     const items = await dados.json();
@@ -20,14 +30,47 @@ function Consulta() {
   }
   
   return (
-    <div>
-        {items.map(item => (
-          <h1 key={item.id}>
-            <Link to={`/consulta/${item.id}`} > {item.firstName} </Link>
-          </h1>
+    <div className="container-xl">
+			<div className="table-responsive">
+				<div className="table-wrapper">
+					<div className="table-title">
+						<div className="row">
+							<div className="col-sm-6">
+								<h2>Consulta de <b>Usuarios</b></h2>
+							</div>
+						</div>
+					</div>
+					<table className="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th style={{width: "20%"}}>Nome</th>
+								<th>Email</th>
+								<th>Data de Cadastro</th>
+								<th>Ultima Atualizacao</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
 
-        ))}
-    </div>
+              {items.map((pessoa) => {
+                return(
+                <tr key={pessoa.id}>
+                  <td>{pessoa.nome}</td>
+                  <td>{pessoa.email}</td>
+                  <td>{pessoa.dataDeCriacao}</td>
+                  <td>{pessoa.ultimaAtualizacao}</td>
+                  <td>
+                    <a href="#editUsuarioModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#deleteUsuarioModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                  </td>
+							</tr> 
+              )  
+            })}
+						</tbody>
+					</table>
+				</div>
+			</div>        
+		</div>
 
   )
 }
