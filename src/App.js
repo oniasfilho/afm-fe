@@ -5,6 +5,10 @@ import Cadastro from './components/Cadastro'
 import Consulta from './components/Consulta';
 import DetalhaPessoa from './components/DetalhaUsuario';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+
 
 
 

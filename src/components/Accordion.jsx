@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function Accordion(props){
 
     const [isPessoal , setIsPessoal] = useState(true);
+    const [dispositivosF, setDispositivosF] = useState([
+        {dispositivo: 'New York', code: 'NY'},
+        {dispositivo: 'Rome', code: 'RM'},
+        {dispositivo: 'London', code: 'LDN'},
+        {dispositivo: 'Istanbul', code: 'IST'},
+        {dispositivo: 'Paris', code: 'PRS'}
+    ]);
+    const [dispositivo, setDispositivo] = useState({dispositivo: "selecione"})
 
     const DispositivoPessoal = () => (
         <div className="form-group col-md-6" id="dispositivoPessoal">
@@ -26,24 +37,20 @@ function Accordion(props){
         </div>
     );
 
+
+
     const DispositivoFuncional = () => (
-        <select className="hidden" id="dispositivoFuncional">
-            <option selected>Selecione o dispositivo</option>
-            <option value="1">Samsung Galaxy Tantofaz</option>
-            <option value="2">iPhone</option>
-            <option value="3">Blackberry</option>
-        </select>
+        
     );
 
-    function handleRadio(i){
-        if(i.target.name === "funcional"){
-            setIsPessoal(false);
-            document.getElementById("radioPessoal").removeAttribute("checked");
-            document.getElementById("radioFuncional").checked = "true"
-        } else{
+    function handleRadio(e){
+        const clicado = e.target;
+        if(clicado.name === "pessoal"){
+            document.getElementById("radioFuncional").checked= false;
             setIsPessoal(true);
-            document.getElementById("radioFuncional").removeAttribute("checked");
-            document.getElementById("radioPessoal").checked = "true"
+        } else{
+            setIsPessoal(false);
+            document.getElementById("radioPessoal").checked= false;
         }
     }
 
@@ -64,9 +71,10 @@ function Accordion(props){
                             <input 
                                 className="form-check-input" 
                                 type="radio" 
-                                name="inlineRadioOptions" 
+                                name="pessoal" 
                                 id="radioPessoal" 
-                                
+                                onClick={handleRadio}
+                                defaultChecked
                             />
                             <label className="form-check-label" htmlFor="radioPessoal">Pessoal</label>
                         </div>
@@ -77,14 +85,13 @@ function Accordion(props){
                                 type="radio" 
                                 name="funcional" 
                                 id="radioFuncional"
-                                onChange={handleRadio}
-                                
+                                onClick={handleRadio}
                             />
                             <label className="form-check-label" htmlFor="radioFuncional">Funcional</label>
                         </div>
 
                         <div className="form-row">
-                            {isPessoal?
+                        {isPessoal?
                             <DispositivoPessoal/>
                             : <DispositivoFuncional/>
                             }
