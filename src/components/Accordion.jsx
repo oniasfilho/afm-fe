@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
 
 function Accordion(props){
 
     const [isPessoal , setIsPessoal] = useState(true);
-    const [dispositivosF, setDispositivosF] = useState([
-        {dispositivo: 'New York', code: 'NY'},
-        {dispositivo: 'Rome', code: 'RM'},
-        {dispositivo: 'London', code: 'LDN'},
-        {dispositivo: 'Istanbul', code: 'IST'},
-        {dispositivo: 'Paris', code: 'PRS'}
-    ]);
-    const [dispositivo, setDispositivo] = useState({dispositivo: "selecione"})
+    const [dispositivosF, setDispositivosF] = useState([]);
+    const [dispositivoSelecionado, setDispositivoSelecionado] = useState(
+        {
+            nick: "",
+            numero: "",
+            imei: "",
+            tipo: "",
+            status: "1"
+        }
+    );
+
+    useEffect(() => {
+        buscaDispositivos();
+    },[])
+
+    const buscaDispositivos = async () =>{
+        const dados = await fetch (
+            '/api/dispositivos'
+        );
+
+        const dispositivos = await dados.json();
+        setDispositivosF(dispositivos);
+    }
 
     const DispositivoPessoal = () => (
         <div className="form-group col-md-6" id="dispositivoPessoal">
@@ -22,7 +35,15 @@ function Accordion(props){
                 name="nome"
                 type="text" 
                 className="form-control" 		
-                placeholder="ex: Galaxy S20"
+                placeholder="ex: iPhone 12"
+                
+            />
+            <label htmlFor="modelo">Numero</label>
+            <input
+                name="numero"
+                type="text" 
+                className="form-control" 		
+                placeholder="ex: (XX)9XXXX-XXXX"
                 
             />
 
@@ -37,10 +58,29 @@ function Accordion(props){
         </div>
     );
 
-
-
     const DispositivoFuncional = () => (
-        
+        <div className="form-group col-md-2">
+						
+						
+						<select 
+							className="custom-select mr-sm-2" 
+							id="inlineFormCustomSelect"
+							value={dispositivoSelecionado}
+							onChange={(e) => setDispositivoSelecionado(e.target.value)}
+                            name="dispositivoF"
+						>
+							<option defaultValue>Escolher</option>
+
+                            {dispositivosF.map(dispositivo =>(
+                                <option 
+                                    value={dispositivo.id}
+                                > 
+                                    {dispositivo.nick}
+                                </option>
+                            ))}
+
+						</select>
+					</div>
     );
 
     function handleRadio(e){
@@ -79,7 +119,7 @@ function Accordion(props){
                             <label className="form-check-label" htmlFor="radioPessoal">Pessoal</label>
                         </div>
 
-                        <div className="form-check form-check-inline">
+                        <div className="form-check form-check-inline" style={{"padding":"10px"}} >
                             <input 
                                 className="form-check-input" 
                                 type="radio" 

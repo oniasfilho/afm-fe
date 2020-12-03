@@ -1,3 +1,4 @@
+
 nav{
 	display: flex;
 	justify-content: space-around;
@@ -8,10 +9,14 @@ nav{
 }
 
 .nav-links{
-    width: 50%;
+	padding-top: 3vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
     list-style: none;
 }
 
+.linkWrapper{
+	max-width: 1400px;
+	margin: 0 auto;
+}

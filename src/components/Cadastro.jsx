@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from './Accordion'
 
 
 function Cadastro() {
+
+  const [usuario, setUsuario] = useState({
+      cpf: "",
+      nome: "",
+      email: "",
+      status: "1",
+      dispositivos: [
+      ]
+    });
+
+    const handleChange = (e) =>{
+      const {name, value} = e.target;
+
+      setUsuario(oldVal =>{
+        return(
+          {...oldVal, [name]:[value]}
+        )
+      })
+    }
+
+    const handleClick = () =>{
+      console.log("chegou aqui (clique)")
+    }
+
+
+
   
   return (
     <div className="container-xl">
@@ -23,20 +49,20 @@ function Cadastro() {
                 type="text" 
                 className="form-control" 												 
                 placeholder="Nome"
-                // onChange={handleChange}
-                // value={pessoa.nome}
+                onChange={handleChange}
+                value={usuario.nome}
                 />
             </div>
 
             <div className="form-group col-md-6">
-              <label htmlFor="inputMatricula">Matrícula</label>
+              <label htmlFor="inputMatricula">CPF</label>
               <input 
-                name="matricula"
+                name="cpf"
                 type="text" 
                 className="form-control" 
-                placeholder="Matrícula"
-                // onChange={handleChange}
-                // value={pessoa.matricula}
+                placeholder="CPF"
+                onChange={handleChange}
+                value={usuario.matricula}
                 />
             </div>
           </div>
@@ -48,8 +74,8 @@ function Cadastro() {
                 type="email" 
                 className="form-control" 
                 placeholder="Ex: john.snow@sefaz.mt.gov.br"
-                // onChange={handleChange}
-                // value={pessoa.email}
+                onChange={handleChange}
+                value={usuario.email}
                 />							
             </div>
 
@@ -61,8 +87,8 @@ function Cadastro() {
                 type="text" 
                 className="form-control" 
                 placeholder="Ex: GSUP"
-                // onChange={handleChange}
-                // value={pessoa.lotacao}
+                onChange={handleChange}
+                value={usuario.lotacao}
                 />
             </div>
           </div>
@@ -71,7 +97,7 @@ function Cadastro() {
 
           <button 
             className="btn btn-primary" 
-            // onClick={handleClick}
+            onClick={handleClick}
           >  
             Cadastrar
           </button>

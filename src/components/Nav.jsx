@@ -10,18 +10,24 @@ function Nav() {
 
   return (
    <nav>
-        <Link style={navStyle} to='/'>
-            <h3>SUCIT</h3>
-        </Link>
-        <ul className="nav-links">
-            <Link style={navStyle} to='/cadastro'>
-                <li>Cadastro</li>
-            </Link>
-            <Link style={navStyle} to='/consulta'>
-                <li>Consulta</li>
-            </Link>
-                
-        </ul>
+
+       <div className="linkWrapper">
+
+        
+            <ul className="nav-links">
+                <Link style={navStyle} to='/'>
+                <li>   <h3>SUCIT</h3> </li>
+                </Link>
+                <Link style={navStyle} to='/cadastro'>
+                    <li>Cadastro</li>
+                </Link>
+                <Link style={navStyle} to='/consulta'>
+                    <li>Consulta</li>
+                </Link>
+                    
+            </ul>
+
+       </div>
    </nav>
   )
 }
