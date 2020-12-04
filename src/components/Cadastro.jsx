@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Accordion from './Accordion';
 
-function Cadastro() {
+function Cadastro(props) {
 
   const [usuario, setUsuario] = useState({
-      cpf: "sssss",
+      cpf: "",
       nome: "",
       email: "",
       status: "1"
@@ -19,33 +19,44 @@ function Cadastro() {
   });
 
   const submeteForm = async () =>{
+    try {
       fetch('/api/usuarios', {
-      method: 'POST',
-      body:usuario,
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    });
+        method: 'POST',
+        body: JSON.stringify(usuario),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      });
+
+      setUsuario({
+        cpf: "",
+        nome: "",
+        email: "",
+        status: "1"
+      })
+
+      props.atualizaListagem();
+
+
+    } catch (error) {
+      console.log(error);
+    }
   }
-
-
     const handleDispInfo = (e) =>{
-      const {name, value} = e.target;
       setDispositivoSelecionado(oldVal =>{
         return(
-          {...oldVal, [name]:[value]}
+          {...oldVal, [e.target.name]:[e.target.value]}
         )
       })
     }
 
     const handleChange = (e) =>{
-      const {name, value} = e.target;
-      console.log(name, value);
+      let {name, value} = e.target;
       setUsuario(oldVal =>{
         return(
           { 
             ...oldVal,
-            [name]:[value]
+            [name]:value
           }
         )
       })

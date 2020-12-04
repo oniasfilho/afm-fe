@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
 
 
-function Consulta() {
+function Consulta(props) {
   useEffect(() => {
     buscaPessoas();
   }, [])
+
+  useEffect(() => {
+    buscaPessoas();
+  }, [props.atualiza])
 
   const [items, setItems] = useState([
     {
