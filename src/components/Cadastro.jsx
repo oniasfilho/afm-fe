@@ -1,35 +1,61 @@
 import React, { useState } from 'react';
-import Accordion from './Accordion'
-
+import Accordion from './Accordion';
 
 function Cadastro() {
 
   const [usuario, setUsuario] = useState({
-      cpf: "",
+      cpf: "sssss",
       nome: "",
       email: "",
-      status: "1",
-      dispositivos: [
-      ]
+      status: "1"
     });
 
-    const handleChange = (e) =>{
-      const {name, value} = e.target;
+    const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
+      nick: "",
+      numero: "",
+      imei: "",
+      tipo: "",
+      status: "1"
+  });
 
-      setUsuario(oldVal =>{
+  const submeteForm = async () =>{
+      fetch('/api/usuarios', {
+      method: 'POST',
+      body:usuario,
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+
+    const handleDispInfo = (e) =>{
+      const {name, value} = e.target;
+      setDispositivoSelecionado(oldVal =>{
         return(
           {...oldVal, [name]:[value]}
         )
       })
     }
 
+    const handleChange = (e) =>{
+      const {name, value} = e.target;
+      console.log(name, value);
+      setUsuario(oldVal =>{
+        return(
+          { 
+            ...oldVal,
+            [name]:[value]
+          }
+        )
+      })
+    }
+
     const handleClick = () =>{
-      console.log("chegou aqui (clique)")
+      submeteForm();
     }
 
 
-
-  
   return (
     <div className="container-xl">
       <div className="table-responsive">
@@ -92,7 +118,7 @@ function Cadastro() {
                 />
             </div>
           </div>
-          <Accordion/>
+          <Accordion infoDisp={handleDispInfo} dispositivoSelecionado={dispositivoSelecionado}/>
           <br></br>
 
           <button 

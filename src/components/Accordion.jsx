@@ -5,15 +5,19 @@ function Accordion(props){
 
     const [isPessoal , setIsPessoal] = useState(true);
     const [dispositivosF, setDispositivosF] = useState([]);
-    const [dispositivoSelecionado, setDispositivoSelecionado] = useState(
-        {
-            nick: "",
-            numero: "",
-            imei: "",
-            tipo: "",
-            status: "1"
-        }
-    );
+    const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
+        nick: "",
+        numero: "",
+        imei: "",
+        tipo: "",
+        status: "1"
+    });
+
+    const handleChange = (e) =>{
+
+        props.infoDisp(e);
+      
+      }
 
     useEffect(() => {
         buscaDispositivos();
@@ -28,59 +32,30 @@ function Accordion(props){
         setDispositivosF(dispositivos);
     }
 
-    const DispositivoPessoal = () => (
-        <div className="form-group col-md-6" id="dispositivoPessoal">
-            <label htmlFor="modelo">Nome</label>
-            <input
-                name="nome"
-                type="text" 
-                className="form-control" 		
-                placeholder="ex: iPhone 12"
-                
-            />
-            <label htmlFor="modelo">Numero</label>
-            <input
-                name="numero"
-                type="text" 
-                className="form-control" 		
-                placeholder="ex: (XX)9XXXX-XXXX"
-                
-            />
-
-            <label htmlFor="imei" style={{marginTop: "5px"}}>IMEI</label>
-            <input 
-                name="imei"
-                type="text" 
-                className="form-control" 
-                placeholder="ex: (000000-00-000000-0)"
-                
-            />
-        </div>
-    );
 
     const DispositivoFuncional = () => (
         <div className="form-group col-md-2">
 						
 						
-						<select 
-							className="custom-select mr-sm-2" 
-							id="inlineFormCustomSelect"
-							value={dispositivoSelecionado}
-							onChange={(e) => setDispositivoSelecionado(e.target.value)}
-                            name="dispositivoF"
-						>
-							<option defaultValue>Escolher</option>
+            <select 
+                className="custom-select mr-sm-2" 
+                id="inlineFormCustomSelect"
+                value={dispositivoSelecionado}
+                onChange={(e) => setDispositivoSelecionado(e.target.value)}
+                name="dispositivoF"
+            >
+                <option defaultValue>Escolher</option>
 
-                            {dispositivosF.map(dispositivo =>(
-                                <option 
-                                    value={dispositivo.id}
-                                > 
-                                    {dispositivo.nick}
-                                </option>
-                            ))}
+                {dispositivosF.map(dispositivo =>(
+                    <option key={dispositivo.id} 
+                        value={dispositivo.id}
+                    > 
+                        {dispositivo.nick}
+                    </option>
+                ))}
 
-						</select>
-					</div>
+            </select>
+        </div>
     );
 
     function handleRadio(e){
@@ -96,7 +71,7 @@ function Accordion(props){
 
     return(
 
-        <div className="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+        <div className="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true" >
             <div className="card">
                 <div className="card-header" role="tab" id="headingOne1">
                     <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
@@ -132,7 +107,36 @@ function Accordion(props){
 
                         <div className="form-row">
                         {isPessoal?
-                            <DispositivoPessoal/>
+                           <div className="form-group col-md-6" id="dispositivoPessoal">
+                           <label htmlFor="modelo">Nome</label>
+                           <input
+                               name="nick"
+                               type="text" 
+                               className="form-control" 		
+                               placeholder="ex: iPhone 12"
+                               onChange={handleChange}
+                               value={props.dispositivoSelecionado.nick}
+                           />
+                           <label htmlFor="modelo">Numero</label>
+                           <input
+                               name="numero"
+                               type="text" 
+                               className="form-control" 		
+                               placeholder="ex: (XX)9XXXX-XXXX"
+                               onChange={handleChange}
+                               value={props.dispositivoSelecionado.numero}
+                           />
+               
+                           <label htmlFor="imei" style={{marginTop: "5px"}}>IMEI</label>
+                           <input
+                               name="imei"
+                               type="text" 
+                               className="form-control" 
+                               placeholder="ex: (000000-00-000000-0)"
+                               onChange={handleChange}
+                               value={props.dispositivoSelecionado.imei}
+                           />
+                       </div>
                             : <DispositivoFuncional/>
                             }
                         </div>
