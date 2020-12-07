@@ -6,18 +6,13 @@ function Accordion(props){
     const [isPessoal , setIsPessoal] = useState(true);
     const [dispositivosF, setDispositivosF] = useState([]);
     const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
-        nick: "",
+        id: "",
         numero: "",
         imei: "",
         tipo: "",
-        status: "1"
+        status: "",
+        nick: ""
     });
-
-    const handleChange = (e) =>{
-
-        props.infoDisp(e);
-      
-      }
 
     useEffect(() => {
         buscaDispositivos();
@@ -35,14 +30,12 @@ function Accordion(props){
 
     const DispositivoFuncional = () => (
         <div className="form-group col-md-2">
-						
-						
             <select 
                 className="custom-select mr-sm-2" 
                 id="inlineFormCustomSelect"
                 value={dispositivoSelecionado}
-                onChange={(e) => setDispositivoSelecionado(e.target.value)}
                 name="dispositivoF"
+                onChange={(e) => props.id(e.target.value)}
             >
                 <option defaultValue>Escolher</option>
 
@@ -114,8 +107,7 @@ function Accordion(props){
                                type="text" 
                                className="form-control" 		
                                placeholder="ex: iPhone 12"
-                               onChange={handleChange}
-                               value={props.dispositivoSelecionado.nick}
+                            //    onChange={handleChange}
                            />
                            <label htmlFor="modelo">Numero</label>
                            <input
@@ -123,8 +115,7 @@ function Accordion(props){
                                type="text" 
                                className="form-control" 		
                                placeholder="ex: (XX)9XXXX-XXXX"
-                               onChange={handleChange}
-                               value={props.dispositivoSelecionado.numero}
+                            //    onChange={handleChange}
                            />
                
                            <label htmlFor="imei" style={{marginTop: "5px"}}>IMEI</label>
@@ -133,8 +124,7 @@ function Accordion(props){
                                type="text" 
                                className="form-control" 
                                placeholder="ex: (000000-00-000000-0)"
-                               onChange={handleChange}
-                               value={props.dispositivoSelecionado.imei}
+                            //    onChange={handleChange}
                            />
                        </div>
                             : <DispositivoFuncional/>
