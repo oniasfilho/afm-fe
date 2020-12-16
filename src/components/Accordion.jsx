@@ -5,7 +5,7 @@ function Accordion(props){
 
     const [isPessoal , setIsPessoal] = useState(true);
     const [dispositivosF, setDispositivosF] = useState([]);
-    const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
+    const [dispositivoSelecionado] = useState({
         id: "",
         numero: "",
         imei: "",
@@ -20,7 +20,7 @@ function Accordion(props){
 
     const buscaDispositivos = async () =>{
         const dados = await fetch (
-            '/api/dispositivos'
+            '/api/dispositivofuncional'
         );
 
         const dispositivos = await dados.json();
@@ -67,7 +67,7 @@ function Accordion(props){
         <div className="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true" >
             <div className="card">
                 <div className="card-header" role="tab" id="headingOne1">
-                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="false"
                         aria-controls="collapseOne1">
                         Adicionar Dispositivo
                     </a>

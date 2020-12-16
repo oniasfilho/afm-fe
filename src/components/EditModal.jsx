@@ -20,18 +20,18 @@ function EditModal(props){
        setUsuario(props.target)
     },[props]);
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
+    // const handleChange = (e) => {
+    //     const {name, value} = e.target;
 
-        setUsuario(oldVal =>{
-            return(
-                {
-                    ...oldVal,
-                    [name]: value
-                }
-            )
-        })
-    }
+    //     setUsuario(oldVal =>{
+    //         return(
+    //             {
+    //                 ...oldVal,
+    //                 [name]: value
+    //             }
+    //         )
+    //     })
+    // }
 
      const atualizaUser = () => {
         try {
@@ -56,67 +56,67 @@ function EditModal(props){
     
 
     return(
-        <div id="editUsuarioModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        <div id="editUsuarioModal" className="modal fade">
+            <div className="modal-dialog">
+                <div className="modal-content">
                     <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Alterar Usuário</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div className="modal-header">						
+                            <h4 className="modal-title">Alterar Usuário</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
+                        <div className="modal-body">					
+                            <div className="form-group">
                                 <label>Nome</label>
                                 <input 
                                     type="text" 
-                                    class="form-control"
-                                    onChange={handleChange}
-                                    value={usuario.nome} 
+                                    className="form-control"
+                                    // onChange={handleChange}
+                                    // value={usuario.nome} 
                                     name="nome"
                                     required
                                 />
                             </div>
 
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>CPF</label>
                                 <input 
                                     type="text" 
-                                    class="form-control"
-                                    onChange={handleChange}
-                                    value={usuario.cpf}
+                                    className="form-control"
+                                    // onChange={handleChange}
+                                    // value={usuario.cpf}
                                     name="cpf" 
                                     required
                                 />
                             </div>
                             
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Email</label>
                                 <input 
                                     type="text" 
-                                    class="form-control"
-                                    onChange={handleChange}
-                                    value={usuario.email} 
+                                    className="form-control"
+                                    // onChange={handleChange}
+                                    // value={usuario.email} 
                                     name="email"
                                     required
                                 />              
                             </div>
 
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Lotação</label>
                                 <input 
                                     type="text" 
-                                    class="form-control"
-                                    onChange={handleChange}
-                                    value={usuario.lotacao}
+                                    className="form-control"
+                                    // onChange={handleChange}
+                                    // value={usuario.lotacao}
                                     name="lotacao" 
                                     
                                 />
                             </div>					
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
                             <input 
                                 type="button" 
-                                class="btn btn-default" 
+                                className="btn btn-default" 
                                 data-dismiss="modal" 
                                 value="Cancelar"
                             />

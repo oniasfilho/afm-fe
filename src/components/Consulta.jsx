@@ -43,7 +43,6 @@ function Consulta() {
     const dados = await fetch('/api/usuarios');
 
     const pessoas = await dados.json();
-    console.log(pessoas);
     setpessoas(pessoas);
   };
 

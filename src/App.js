@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Cadastro from './components/Cadastro';
@@ -12,9 +12,9 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 function App() {
-  const TestaAtualiza = (e) => {
-    alert('chegou em atualiza');
-  };
+  // const TestaAtualiza = (e) => {
+  //   alert('chegou em atualiza');
+  // };
 
   return (
     <Router>

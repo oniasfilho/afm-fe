@@ -11,13 +11,13 @@ function Cadastro(props) {
     dispositivos: []
   });
 
-  const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
-    nick: '',
-    numero: '',
-    imei: '',
-    tipo: '',
-    status: '1',
-  });
+  // const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
+  //   nick: '',
+  //   numero: '',
+  //   imei: '',
+  //   tipo: '',
+  //   status: '1',
+  // });
 
   const [counter, setCounter] = useContext(AtualizaContext);
 
@@ -42,7 +42,7 @@ function Cadastro(props) {
 
       props.atualizaListagem();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
