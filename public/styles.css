@@ -222,3 +222,26 @@ table.table .avatar {
 .modal form label {
 	font-weight: normal;
 }	
+
+
+nav{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 10vh;
+	background: rgb(4, 60, 88);
+	color: white;
+}
+
+.nav-links{
+	padding-top: 3vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.linkWrapper{
+	max-width: 1400px;
+	margin: 0 auto;
+}

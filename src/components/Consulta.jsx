@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import EditModal from './EditModal';
 import {AtualizaContext} from './AtualizaContext';
 
 
@@ -16,20 +15,9 @@ function Consulta() {
       dispositivos: [],
     },
   ]);
-  const [selecionada, setSelecionada] = useState([
-    {
-      id: '',
-      cpf: '',
-      nome: '',
-      email: '',
-      dataDeCriacao: null,
-      ultimaAtualizacao: null,
-      status: null,
-      dispositivos: [],
-    },
-  ]);
+  
 
-  const [counter, setCounter] = useContext(AtualizaContext);
+  const [counter, setCounter,selecionada, setSelecionada] = useContext(AtualizaContext);
 
   useEffect(() => {
     buscaPessoas();
@@ -94,9 +82,10 @@ function Consulta() {
                     <td>{pessoa.ultimaAtualizacao}</td>
                     <td>
                       <a
-                        href="#editUsuarioModal"
+                        href="#"
+                        data-bs-target="#exampleModal"
                         className="edit"
-                        data-toggle="modal"
+                        data-bs-toggle="modal" 
                         onClick={() => setSelecionada(pessoa)}
                       >
                         <i
@@ -104,10 +93,12 @@ function Consulta() {
                           data-toggle="tooltip"
                           title="Edit"
                         >
+
+                          
                           &#xE254;
                         </i>
                       </a>
-                      <EditModal target={selecionada} />
+                      
                       <a
                         href="#deleteUsuarioModal"
                         className="delete"
@@ -131,8 +122,11 @@ function Consulta() {
               })}
             </tbody>
           </table>
+         
         </div>
       </div>
+
+      
     </div>
   );
 }

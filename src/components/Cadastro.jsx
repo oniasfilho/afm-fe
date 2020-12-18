@@ -1,30 +1,42 @@
 import React, { useState, useContext } from 'react';
 import Accordion from './Accordion';
+// import { AtualizaProvider } from './AtualizaContext';
 import {AtualizaContext} from './AtualizaContext';
 
 function Cadastro(props) {
-  const [usuario, setUsuario] = useState({
-    cpf: "",
-    nome: "",
-    email: "",
-    status: "1",
-    dispositivos: []
-  });
+ 
+  const [counter, setCounter, dp, setDp, df, setDf, isPersonal , setIsPersonal, usuario, setUsuario] = useContext(AtualizaContext);
+  
 
-  // const [dispositivoSelecionado, setDispositivoSelecionado] = useState({
-  //   nick: '',
-  //   numero: '',
-  //   imei: '',
-  //   tipo: '',
-  //   status: '1',
-  // });
+  const setaDispositivoFuncional = () =>{
+    setUsuario(oldVal => {
+      return (
+        {...oldVal,
+          dispositivoFuncional: {
+            ...df
+          }}
+      );
+    })
+  }
 
-  const [counter, setCounter] = useContext(AtualizaContext);
-
+  const setaDispositivoPessoal = () =>{
+    setUsuario(oldVal => {
+      return (
+        {...oldVal,
+          dispositivoPessoal: {...dp}}
+      );
+    })
+  }
 
 
   const submeteForm = async () => {
+
     try {
+
+      // isPersonal?
+      //   setaDispositivoPessoal() :
+      //   setaDispositivoFuncional()
+
       fetch('/api/usuarios', {
         method: 'POST',
         body: JSON.stringify(usuario),
@@ -40,10 +52,14 @@ function Cadastro(props) {
         status: '1',
       });
 
-      props.atualizaListagem();
+      setCounter(counter+1)
+
     } catch (error) {
       // console.log(error);
     }
+
+
+    
   };
 
   const handleChange = (e) => {
@@ -57,8 +73,18 @@ function Cadastro(props) {
   };
 
   const handleClick = () => {
+    
+    setUsuario({
+      cpf: "",
+      nome: "",
+      email: "",
+      status: "",
+      lotacao: "",
+      dispositivoFuncional : null,
+      dispositivoPessoal: null
+    })
+
     submeteForm();
-    setCounter(counter+1)
   };
 
   const handleSelecaoF = (e) => {
@@ -138,8 +164,12 @@ function Cadastro(props) {
                   value={usuario.lotacao}
                 />
               </div>
+
+              <div>
+                
+              </div>
             </div>
-            <Accordion id={handleSelecaoF}/>
+              <Accordion/>
             <br></br>
 
             <button className="btn btn-primary" onClick={handleClick}>
@@ -148,9 +178,6 @@ function Cadastro(props) {
 
             <br></br>
             <br/>
-
-          
-                       
           </div>
         </div>
       </div>

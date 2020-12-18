@@ -2,18 +2,13 @@ import React from 'react';
 import {Link} from 'react-router-dom';  
 
 function Nav() {
-  
-
     const navStyle= {
         color: 'white'
     }
 
   return (
    <nav>
-
        <div className="linkWrapper">
-
-        
             <ul className="nav-links">
                 <Link style={navStyle} to='/'>
                 <li>   <h3>SUCIT</h3> </li>
@@ -24,9 +19,7 @@ function Nav() {
                 <Link style={navStyle} to='/consulta'>
                     <li>Consulta</li>
                 </Link>
-                    
             </ul>
-
        </div>
    </nav>
   )
