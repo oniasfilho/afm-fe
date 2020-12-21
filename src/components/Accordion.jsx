@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import {AtualizaContext} from './AtualizaContext';
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Accordion(){
@@ -32,8 +30,6 @@ function Accordion(){
 
     const [counter, setCounter, dp, setDp, df, setDf, isPersonal , setIsPersonal,usuario, setUsuario] = useContext(AtualizaContext);
 
-
-    
     useEffect(() =>{
         setDispPessoal({
             id: "",
@@ -43,7 +39,6 @@ function Accordion(){
             nick: ""
         })
     }, [counter])
-
 
     useEffect(() => {
         buscaDispositivos();
@@ -82,7 +77,6 @@ function Accordion(){
             );
         }); 
     }
-
 
     const DispositivoFuncional = () => (
         <div className="form-group col-md-6">
@@ -150,8 +144,6 @@ function Accordion(){
     }
 
     return(
-
-
         <div className="accordion" id="accordionExample">
             <div className="accordion-item">
                 <h2 className="accordion-header" id="headingOne">
@@ -219,7 +211,6 @@ function Accordion(){
                                onChange={(e) => handleDPChange(e) }
                            />
                             <br></br>
-                          
                        </div>
                             : <DispositivoFuncional/>
                             }
@@ -228,13 +219,8 @@ function Accordion(){
                 </div>
                 </div>
             </div>
-           
         </div>
-    
     );
-
-    
-
 }
 
 export default Accordion;

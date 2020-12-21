@@ -1,10 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {AtualizaContext} from './AtualizaContext';
+import AccordionEdit from './AccordionEdit';
 
 function EditModal(){
 
-    ''
-    const [counter, setCounter, selecionada, setSelecionada] = useContext(AtualizaContext);
+    const [counter, setCounter, selecionada, setSelecionada, usuario, setUsuario] = useContext(AtualizaContext);
+
+    const handleClick = () => {
+    
+        setUsuario({
+          cpf: "",
+          nome: "",
+          email: "",
+          status: "",
+          lotacao: "",
+          dispositivoFuncional : null,
+          dispositivoPessoal: null
+        })
+    
+        submeteForm();
+    };
+
+    const submeteForm = async () => {
+        try {
+    
+          fetch('/api/usuarios', {
+            method: 'POST',
+            body: JSON.stringify(usuario),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          setUsuario({
+            cpf: '',
+            nome: '',
+            email: '',
+            status: '1',
+          });
+    
+          setCounter(counter+1)
+        } catch (error) {
+
+        }
+    };
 
      const atualizaUser = () => {
         try {
@@ -20,11 +59,6 @@ function EditModal(){
         }
     }
 
-    const handleSave = () =>{
-        atualizaUser();
-        setCounter(counter+1);
-    }
-
     const handleChange = (e) =>{
         const {name, value} = e.target;
         setSelecionada(oldVal =>{
@@ -36,89 +70,71 @@ function EditModal(){
     }
     
     return(
+            <div className="modal fade xl" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputNome">Nome</label>
+                                    <input
+                                        name="nome"
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Nome"
+                                        onChange={handleChange}
+                                        value={selecionada.nome}
+                                    />
+                                </div>
 
-        <div> 
-        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog modal-xl">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-              <form>
-                             <div className="form-group">
-                             <label>Nome</label>
-                                 <input 
-                                    type="text" 
-                                    className="form-control"
-                                    onChange={handleChange}
-                                    value={selecionada.nome} 
-                                    name="nome"
-                                    required
-                                />
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputMatricula">CPF</label>
+                                    <input
+                                        name="cpf"
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="CPF"
+                                        onChange={handleChange}
+                                        value={selecionada.matricula}
+                                    />
+                                </div>
                             </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputEndereco">Email</label>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        className="form-control"
+                                        placeholder="Ex: john.snow@sefaz.mt.gov.br"
+                                        onChange={handleChange}
+                                        value={selecionada.email}
+                                    />
+                                </div>
 
-                            <div className="form-group">
-                                <label>CPF</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control"
-                                    onChange={handleChange}
-                                    value={selecionada.cpf} 
-                                    name="cpf" 
-                                    required
-                                />
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="lotacao">Lotação</label>
+                                    <input
+                                        name="lotacao"
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Ex: GSUP"
+                                        onChange={handleChange}
+                                        value={usuario.lotacao}
+                                    />
+                                </div>
                             </div>
-                            
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control"
-                                    onChange={handleChange}
-                                    value={selecionada.email} 
-                                    name="email"
-                                    required
-                                />              
-                            </div>
+                            <AccordionEdit/>
+                            <br></br>
 
-                            <div className="form-group">
-                                <label>Lotação</label>
-                                <input 
-                                    type="text" 
-                                    className="form-control"
-                                    onChange={handleChange}
-                                    value={selecionada.lotacao} 
-                                    name="lotacao" 
-                                />
-                            </div>					
-                    </form>
-              </div>
-              <div className="modal-footer">
-                <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    data-bs-dismiss="modal"
-                >
-                    Close
-                </button>
-                
-                <button 
-                    type="button" 
-                    className="btn btn-primary"
-                    data-bs-dismiss="modal"
-                    onClick={handleSave}
-                >
-                    Save changes
-                </button>
-              </div>
+                            <button className="btn btn-primary" onClick={handleClick}>
+                            Cadastrar
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-
-        </div>
-
     );
 }
 
